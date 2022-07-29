@@ -37,14 +37,24 @@ app = Flask(__name__)
 def welcome():
     """List all available api routes."""
     return (
-        f"Available Routes:<br/>"
-        f"/api/v1.0/names<br/>"
-        f"/api/v1.0/passengers"
+        f"Welcome to my Hawaii SQLAlchemy Challenge! This page will offer some analysis on Hawaii weather to help plan a great vacation.<br/>"
+        f"<br/>"
+        f"Please see the web directory below for help navigating the page:<br/>"
+        f"Precipitation Data with Dates:"
+        f"/api/v1.0/precipitation<br/>"
+        f"Stations and Names:"
+        f"/api/v1.0/stations<br/>"
+        f"Temperature Observations (1 yr from the last data point):"
+        f"/api/v1.0/tobs<br/>"
+        f"Minimum, Average, Maximum Temperatures for Inputted Start Date('YYYY-MM-DD'):"
+        f"/api/v1.0/<start><br/>"
+        f"Min, Avg, Max Temperatures for Inputted Start and End Date('YYYY-MM-DD'/'YYYY-MM-DD'):"
+        f"/api/v1.0/<start>/<end>"
     )
 
 
 @app.route("/api/v1.0/precipitation")
-def names():
+def precipitation():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
@@ -91,16 +101,6 @@ def passengers():
 
     session.close()
         
-@app.route("/api/v1.0/tobs")
-def passengers():
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    """Return a list of passenger data including the name, age, and sex of each passenger"""
-    # Query all passengers
-    results = session.query(Passenger.name, Passenger.age, Passenger.sex).all()
-
-    session.close()
     
 @app.route("/api/v1.0/<start>")
 def passengers():
