@@ -20,8 +20,8 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table station and classes
-station = Base.classes.station
-measurement = Base.classes.measurement
+stations = Base.classes.station
+measurements = Base.classes.measurement
 
 #################################################
 # Flask Setup
@@ -41,15 +41,15 @@ def welcome():
         f"<br/>"
         f"Please see the web directory below for help navigating the page:<br/>"
         f"Precipitation Data with Dates:"
-        f"/api/v1.0/precipitation<br/>"
+        <a href=\"/api/v1.0/precipitation<a><br/>"
         f"Stations and Names:"
-        f"/api/v1.0/stations<br/>"
+        <a href=\"/api/v1.0/stations<a><br/>"
         f"Temperature Observations (1 yr from the last data point):"
-        f"/api/v1.0/tobs<br/>"
-        f"Minimum, Average, Maximum Temperatures for Inputted Start Date('YYYY-MM-DD'):"
-        f"/api/v1.0/<start><br/>"
-        f"Min, Avg, Max Temperatures for Inputted Start and End Date('YYYY-MM-DD'/'YYYY-MM-DD'):"
-        f"/api/v1.0/<start>/<end>"
+        <a href=\"/api/v1.0/tobs<a><br/>"
+        f"Minimum, Average, and Maximum Temperatures for Inputted Start Date('YYYY-MM-DD'):"
+        <a href=\"/api/v1.0/<start><a><br/>"
+        f"Minimum, Average, and Maximum Temperatures for Inputted Start and End Date('YYYY-MM-DD'/'YYYY-MM-DD'):"
+        <a href=\"/api/v1.0/<start>/<end><a>"
     )
 
 
@@ -58,7 +58,7 @@ def precipitation():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of all passenger names"""
+    """Return precipitation for the last year in the data"""
     # Query all passengers
     results = session.query(Passenger.name).all()
 
@@ -71,11 +71,11 @@ def precipitation():
 
 
 @app.route("/api/v1.0/stations")
-def passengers():
+def stations():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of passenger data including the name, age, and sex of each passenger"""
+    """Return a list of Hawaii stations"""
     # Query all passengers
     results = session.query(Passenger.name, Passenger.age, Passenger.sex).all()
 
@@ -91,11 +91,11 @@ def passengers():
         all_passengers.append(passenger_dict)
         
 @app.route("/api/v1.0/tobs")
-def passengers():
+def tobs():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of passenger data including the name, age, and sex of each passenger"""
+    """Return a list of temperature observations"""
     # Query all passengers
     results = session.query(Passenger.name, Passenger.age, Passenger.sex).all()
 
@@ -103,7 +103,7 @@ def passengers():
         
     
 @app.route("/api/v1.0/<start>")
-def passengers():
+def starttemps():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
@@ -114,7 +114,7 @@ def passengers():
     session.close()
 
 @app.route("/api/v1.0/<start>/<end>")
-def passengers():
+def startendtemps():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
